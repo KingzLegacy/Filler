@@ -25,7 +25,7 @@ public class UsePump extends Node
 	public void execute() 
 	{
 		SceneObject Pump = SceneEntities.getNearest(11661);
-		if (!Pump.isOnScreen() || Pump.getLocation().distanceTo() > 6)
+		if (Pump != null && !Pump.isOnScreen() || Pump.getLocation().distanceTo() > 5)
 		{
 			LegacyFiller.Status = "Going To Pump";
 			Walking.walk(Walking.getClosestOnMap(Pump.getLocation()));
@@ -47,7 +47,7 @@ public class UsePump extends Node
 			if (!Pump.isOnScreen())
 				return;
 		}
-		if (Pump.isOnScreen() && Pump.getLocation().distanceTo() <= 5)
+		if (Pump != null && Pump.isOnScreen() && Pump.getLocation().distanceTo() <= 5)
 		{
 			LegacyFiller.Status = "Using Pump";
 			if (!Inventory.isItemSelected())

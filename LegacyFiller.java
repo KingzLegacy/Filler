@@ -33,7 +33,7 @@ import Filler.Nodes.UsePump;
 import Filler.Nodes.UseWidget;
 
 @Manifest(name = "LegacyFiller",
-version = 0.01,
+version = 0.02,
 description = "Fills vials in Falador",
 authors = { "KingzLegacy" })
 public class LegacyFiller extends ActiveScript implements PaintListener

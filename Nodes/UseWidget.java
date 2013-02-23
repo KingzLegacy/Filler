@@ -27,7 +27,7 @@ public class UseWidget extends Node
 	@Override
 	public void execute() 
 	{
-		if (ItemSelected())
+		if (Widgets.get(1370).validate() && ItemSelected())
 		{
 			LegacyFiller.Status = "Starting To Fill";
 			Widgets.get(1370, 38).click(true);
@@ -54,11 +54,14 @@ public class UseWidget extends Node
 			}
 			return;
 		}
-		else if (!ItemSelected())
+		else if (Widgets.get(1370).validate() && !ItemSelected())
 		{
 			LegacyFiller.Status = "Choosing Item";
 			Widgets.get(1371, 44).getChild(LegacyFiller.CWID).click(true);
-			sleep(500);
+			
+			Timer t = new Timer(750);
+			while (t.isRunning() && !ItemSelected())
+				sleep(50);
 		}
 	}
 	

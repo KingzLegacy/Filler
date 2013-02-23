@@ -25,7 +25,7 @@ public class OpenBank extends Node
 	@Override
 	public void execute() 
 	{
-		if (bank.distanceTo() > 7)
+		if (bank.isOnMap() && bank.distanceTo() > 7)
 		{
 			LegacyFiller.Status = "Going To Bank";
 			Walking.walk(bank.randomize(1, 1));
@@ -35,7 +35,7 @@ public class OpenBank extends Node
 				Camera.turnTo(bank);
 			
 			Timer t = new Timer(1000);
-			while (t.isRunning() && SceneEntities.getNearest(11758).getLocation().distanceTo() > 7)
+			while (t.isRunning() && SceneEntities.getNearest(11758) != null && SceneEntities.getNearest(11758).getLocation().distanceTo() > 7)
 				if (Players.getLocal().isMoving())
 					t.reset();
 			return;
@@ -43,7 +43,7 @@ public class OpenBank extends Node
 		else
 		{
 			LegacyFiller.Status = "Opening Bank";
-			if (!SceneEntities.getNearest(11758).isOnScreen())
+			if (SceneEntities.getNearest(11758) != null && !SceneEntities.getNearest(11758).isOnScreen())
 				Camera.turnTo(SceneEntities.getNearest(11758));
 			SceneEntities.getNearest(11758).interact("Bank");
 			
