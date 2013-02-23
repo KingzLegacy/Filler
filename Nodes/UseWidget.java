@@ -27,6 +27,7 @@ public class UseWidget extends Node
 	@Override
 	public void execute() 
 	{
+		int Randy = Random.nextInt(1, 5);
 		if (Widgets.get(1370).validate() && ItemSelected())
 		{
 			LegacyFiller.Status = "Starting To Fill";
@@ -45,8 +46,9 @@ public class UseWidget extends Node
 						fs.reset();
 					if (Inventory.getCount(LegacyFiller.EID) < 5 && Mouse.getLocation().distance(new Tile(2945, 3370, 0).getLocation().randomize(1, 1).getMapPoint()) > 10)
 					{
-						Camera.turnTo(SceneEntities.getNearest(11758));
-						if (Random.nextInt(1, 4) > 1)
+						if (Randy > 1)
+							Camera.turnTo(SceneEntities.getNearest(11758));
+						if (Randy != 2)
 							Mouse.move(new Tile(2945, 3370, 0).getLocation().randomize(1, 1).getMapPoint());
 					}
 					sleep(50);

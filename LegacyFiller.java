@@ -33,7 +33,7 @@ import Filler.Nodes.UsePump;
 import Filler.Nodes.UseWidget;
 
 @Manifest(name = "LegacyFiller",
-version = 0.02,
+version = 0.03,
 description = "Fills vials in Falador",
 authors = { "KingzLegacy" })
 public class LegacyFiller extends ActiveScript implements PaintListener
@@ -58,8 +58,6 @@ public class LegacyFiller extends ActiveScript implements PaintListener
 		while (!GUIDone)
 			sleep(100);
 		
-		if (Game.isLoggedIn() && Players.getLocal() != null)
-			Camera.setPitch(Random.nextInt(40, 50));
 		Price = GetPrice(FID);
 		Mouse.setSpeed(Mouse.Speed.FAST);
 		getContainer().submit(new Antiban());
@@ -68,7 +66,26 @@ public class LegacyFiller extends ActiveScript implements PaintListener
 	@Override
 	public int loop() 
 	{
-		if (Game.isLoggedIn() && Players.getLocal() != null && GUIDone)
+		if (!LoggedIn())
+		{
+			if (Widgets.get(596, 7).validate() && Widgets.get(596, 7).visible())
+			{
+				Timer t = new Timer(360000);
+				while (t.isRunning() && !Game.isLoggedIn())
+					sleep(500);
+			}
+			if (Widgets.get(906, 199).validate())
+			{
+				Widgets.get(906, 199).click(true);
+				
+				Timer t = new Timer(1500);
+				while (t.isRunning() && Widgets.get(906, 199).validate() && !Widgets.get(906, 199).getText().contains("Entering"))
+					sleep(100);
+				if (Widgets.get(906, 199).validate() && Widgets.get(906, 199).getText().contains("Entering"))
+					sleep(5000);
+			}
+		}
+		if (LoggedIn() && Players.getLocal() != null && GUIDone)
 		{
 			if (NoMore)
 				StopScript();
@@ -79,6 +96,11 @@ public class LegacyFiller extends ActiveScript implements PaintListener
 					n.execute();
 		}
 		return 10;
+	}
+	
+	public boolean LoggedIn()
+	{
+		return (Game.getClientState() != Game.INDEX_LOBBY_SCREEN && Game.getClientState() != Game.INDEX_LOGIN_SCREEN);
 	}
 	
 	public void StopScript()

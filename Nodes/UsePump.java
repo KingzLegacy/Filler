@@ -31,6 +31,8 @@ public class UsePump extends Node
 			Walking.walk(Walking.getClosestOnMap(Pump.getLocation()));
 			if (!Walking.isRunEnabled() && Walking.getEnergy() > 50)
 				Walking.setRun(true);
+			if (Camera.getPitch() < 25)
+				Camera.setPitch(Random.nextInt(40, 65));
 			if (Random.nextInt(1, 4) > 1)
 				Camera.turnTo(Pump);
 			
