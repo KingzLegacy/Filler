@@ -38,6 +38,7 @@ public class UseWidget extends Node
 				sleep(10);
 			if (Players.getLocal().getAnimation() == 832)
 			{
+				LegacyFiller.Filled += Inventory.getCount(LegacyFiller.EID);
 				Timer fs = new Timer(5000);
 				while (fs.isRunning() && Inventory.contains(LegacyFiller.EID))
 				{

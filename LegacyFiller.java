@@ -23,6 +23,7 @@ import org.powerbot.game.api.methods.Game;
 import org.powerbot.game.api.methods.Widgets;
 import org.powerbot.game.api.methods.input.Mouse;
 import org.powerbot.game.api.methods.interactive.Players;
+import org.powerbot.game.api.methods.widget.Bank;
 import org.powerbot.game.api.methods.widget.Camera;
 import org.powerbot.game.api.util.Random;
 import org.powerbot.game.api.util.Timer;
@@ -33,7 +34,7 @@ import Filler.Nodes.UsePump;
 import Filler.Nodes.UseWidget;
 
 @Manifest(name = "LegacyFiller",
-version = 0.05,
+version = 0.06,
 description = "Fills vials in Falador",
 authors = { "KingzLegacy" })
 public class LegacyFiller extends ActiveScript implements PaintListener

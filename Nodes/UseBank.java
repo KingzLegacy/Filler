@@ -20,18 +20,14 @@ public class UseBank extends Node
 	public void execute() 
 	{
 		LegacyFiller.Status = "Using Bank";
+		
 		if (!Inventory.containsAll(LegacyFiller.EID) && Inventory.getCount() > 0)
 		{
-			int x = Inventory.getCount(LegacyFiller.FID);
 			Widgets.get(762, 34).click(true);
 			
 			Timer t = new Timer(1250);
 			while (t.isRunning() && Inventory.contains(LegacyFiller.FID))
 				sleep(50);
-			if (!Inventory.contains(LegacyFiller.FID))
-				LegacyFiller.Filled += x;
-			else
-				return;
 		}
 		if (Bank.getItem(LegacyFiller.EID) != null && Inventory.getCount() <= 0)
 		{
