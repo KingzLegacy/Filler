@@ -40,7 +40,7 @@ public class OpenBank extends Node
 					t.reset();
 			return;
 		}
-		else
+		else if (SceneEntities.getNearest(11758) != null)
 		{
 			LegacyFiller.Status = "Opening Bank";
 			if (SceneEntities.getNearest(11758) != null && !SceneEntities.getNearest(11758).isOnScreen())
@@ -51,6 +51,8 @@ public class OpenBank extends Node
 			while (t.isRunning() && !Widgets.get(762).validate())
 				if (Players.getLocal().isMoving())
 					t.reset();
+			if (Widgets.get(762).validate())
+				sleep(300);
 		}
 	}
 }

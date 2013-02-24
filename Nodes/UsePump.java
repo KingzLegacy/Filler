@@ -24,57 +24,63 @@ public class UsePump extends Node
 	@Override
 	public void execute() 
 	{
+		int Randy = Random.nextInt(1, 4);
 		SceneObject Pump = SceneEntities.getNearest(11661);
-		if (Pump != null && !Pump.isOnScreen() || Pump.getLocation().distanceTo() > 5)
+		if (Pump != null)
 		{
-			LegacyFiller.Status = "Going To Pump";
-			Walking.walk(Walking.getClosestOnMap(Pump.getLocation()));
-			if (!Walking.isRunEnabled() && Walking.getEnergy() > 50)
-				Walking.setRun(true);
-			if (Camera.getPitch() < 25)
-				Camera.setPitch(Random.nextInt(40, 65));
-			if (Random.nextInt(1, 4) > 1)
-				Camera.turnTo(Pump);
-			
-			Timer t = new Timer(1000);
-			while (t.isRunning() && Pump.getLocation().distanceTo() > 6)
+			if (!Pump.isOnScreen() || Pump.getLocation().distanceTo() > 6)
 			{
-				if (Players.getLocal().isMoving())
-				{
-					t.reset();
-					if (!Inventory.isItemSelected() && Inventory.contains(LegacyFiller.EID))
-						Inventory.getItem(LegacyFiller.EID).getWidgetChild().click(true);
-				}
-			}
-			if (!Pump.isOnScreen())
-				return;
-		}
-		if (Pump != null && Pump.isOnScreen() && Pump.getLocation().distanceTo() <= 5)
-		{
-			LegacyFiller.Status = "Using Pump";
-			if (!Inventory.isItemSelected())
-			{
-				Inventory.selectItem(LegacyFiller.EID);
-				
-				Timer t = new Timer(750);
-				while (t.isRunning() && !Inventory.isItemSelected())
-					sleep(20);
-				if (!Inventory.isItemSelected())
-					return;
-			}
-			if (Inventory.isItemSelected())
-			{
-				Pump.click(true);
+				LegacyFiller.Status = "Going To Pump";
+				Walking.walk(Walking.getClosestOnMap(Pump.getLocation()));
+				if (!Walking.isRunEnabled() && Walking.getEnergy() > 50)
+					Walking.setRun(true);
+				if (Camera.getPitch() < 25)
+					Camera.setPitch(Random.nextInt(40, 65));
+				if (Randy > 1)
+					Camera.turnTo(Pump);
 				
 				Timer t = new Timer(1000);
-				while (t.isRunning() && !Widgets.get(1370).validate())
+				while (t.isRunning() && Pump.getLocation().distanceTo() > 6)
 				{
-					if (Players.getLocal().isMoving() && Pump.getLocation().distanceTo() >= 2)
+					if (Players.getLocal().isMoving())
+					{
 						t.reset();
-					sleep(50);
+						if (Randy > 1 && Pump.getLocation().distanceTo() == 6 && !Pump.isOnScreen())
+							Camera.setAngle(Camera.getMobileAngle(Pump) +- Random.nextInt(5, 15));
+						if (!Inventory.isItemSelected() && Inventory.contains(LegacyFiller.EID))
+							Inventory.getItem(LegacyFiller.EID).getWidgetChild().click(true);
+					}
 				}
-				if (!Widgets.get(1370).validate())
+				if (!Pump.isOnScreen())
 					return;
+			}
+			if (Pump.isOnScreen() && Pump.getLocation().distanceTo() <= 5)
+			{
+				LegacyFiller.Status = "Using Pump";
+				if (!Inventory.isItemSelected())
+				{
+					Inventory.selectItem(LegacyFiller.EID);
+					
+					Timer t = new Timer(750);
+					while (t.isRunning() && !Inventory.isItemSelected())
+						sleep(20);
+					if (!Inventory.isItemSelected())
+						return;
+				}
+				if (Inventory.isItemSelected())
+				{
+					Pump.click(true);
+					
+					Timer t = new Timer(1000);
+					while (t.isRunning() && !Widgets.get(1370).validate())
+					{
+						if (Players.getLocal().isMoving() && Pump.getLocation().distanceTo() >= 2)
+							t.reset();
+						sleep(50);
+					}
+					if (!Widgets.get(1370).validate())
+						return;
+				}
 			}
 		}
 	}

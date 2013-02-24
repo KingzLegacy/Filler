@@ -41,7 +41,7 @@ public class UseWidget extends Node
 				Timer fs = new Timer(5000);
 				while (fs.isRunning() && Inventory.contains(LegacyFiller.EID))
 				{
-					LegacyFiller.Status = "Filling " + Inventory.getItem(LegacyFiller.EID).getName() + "s";
+					LegacyFiller.Status = "Filling";
 					if (Players.getLocal().getAnimation() == 832)
 						fs.reset();
 					if (Inventory.getCount(LegacyFiller.EID) < 5 && Mouse.getLocation().distance(new Tile(2945, 3370, 0).getLocation().randomize(1, 1).getMapPoint()) > 10)
@@ -51,7 +51,6 @@ public class UseWidget extends Node
 						if (Randy != 2)
 							Mouse.move(new Tile(2945, 3370, 0).getLocation().randomize(1, 1).getMapPoint());
 					}
-					sleep(50);
 				}
 			}
 			return;
